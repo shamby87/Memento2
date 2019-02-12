@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    android:padding="10dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px" />
+
+    <EditText style="@style/Widget.AppCompat.EditText"
+        android:background="@null"
+        android:id="@+id/EditTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Task"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:nextFocusDown="@+id/EditTextContent"
+        />
+
+    <EditText style="@style/Widget.AppCompat.EditText"
+        android:background="@null"
+        android:id="@id/EditTextContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Details."
+        android:maxLines="2"
+        android:inputType="text"
+        android:textColor="@android:color/darker_gray"
+        android:nextFocusDown="@+id/ButtonSave"
+        />
+
+    <Button style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@id/ButtonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_gravity="end"
+        />
+
+</LinearLayout>
