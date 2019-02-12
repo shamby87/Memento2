@@ -53,6 +53,15 @@ before_script:
   - if [ ! -d "$HOME/google-cloud-sdk/bin/" ]; then rm -rf $HOME/google-cloud-sdk; export $CLOUDSDK_CORE_DISABLE_PROMPTS; curl https://sdk.cloud.google.cpm | bash; fi
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud version
+  - gcloud auth activate-service-account firebase-adminsdk-yrxat@memento-2-59cec.iam.gserviceaccount.com --key-file=memento2gson.json --project=memento-2-59cec
 script:
   - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
   - ./gradlew build assembleDebug
+  - gcloud components update
+  - gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --type=robo --device model=Nexus4,version=19
+  - ./gradlew clean assembleAndroidTest -PdisablePreDex
+  - gcloud firebase test android run \  
+    --type instrumentation \
+    --app app/build/outputs/apk/debug/app-debug.apk \
+    --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+    --device model=Pixel2,version=27,locale=en,orientation=portrait  \
