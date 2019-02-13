@@ -5,7 +5,7 @@ references:
   ## Cache
 
   cache_key: &cache_key
-    key: cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "mobile/build.gradle" }}
+    key: cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
   restore_cache: &restore_cache
     restore_cache:
       <<: *cache_key
@@ -30,16 +30,16 @@ references:
     persist_to_workspace:
       root: *workspace
       paths:
-        - mobile/build/intermediates
-        - mobile/build/outputs/androidTest-results
-        - mobile/build/outputs/apk
-        - mobile/build/outputs/code-coverage
-        - mobile/build/test-results
+        - app/build/intermediates
+        - app/build/outputs/androidTest-results
+        - app/build/outputs/apk
+        - app/build/outputs/code-coverage
+        - app/build/test-results
   persist_release_workspace: &persist_release_workspace
     persist_to_workspace:
       root: *workspace
       paths:
-        - mobile/build
+        - app/build
   attach_firebase_workspace: &attach_firebase_workspace
     attach_workspace:
       at: *workspace
@@ -69,6 +69,17 @@ references:
 
   ## Keys
 
+ ## Google Services
+
+   ##export_gservices_key: &export_gservices_key
+     ##run:
+       ##name: Export Google Services key environment variable
+       ##command: echo 'export GOOGLE_SERVICES_KEY="$GOOGLE_SERVICES_KEY"' >> $BASH_ENV
+   ##decode_gservices_key: &decode_gservices_key
+     ##run:
+       ##name: Decode Google Services key
+       ##command: echo $GOOGLE_SERVICES_KEY | base64 -di > app/google-services.json
+
   # Google Cloud Service
 
   export_gcloud_key: &export_gcloud_key
@@ -92,14 +103,14 @@ jobs:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - *save_cache
-      - *export_gservices_key
+      ##- *export_gservices_key
       - *decode_gservices_key
       - run:
           name: Gradle build (debug)
           command: ./gradlew -PciBuild=true :mobile:assembleDebug :mobile:assembleAndroidTest
       - *persist_debug_workspace
       - store_artifacts:
-          path: mobile/build/outputs/apk/
+          path: app/build/outputs/apk/
           destination: /apk/
   
   ## Check code quality
@@ -113,7 +124,7 @@ jobs:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - *save_cache
-      - *export_gservices_key
+      ##- *export_gservices_key
       - *decode_gservices_key
       - run:
           name: Run Checkstyle
@@ -123,7 +134,7 @@ jobs:
           command: ./gradlew -PciBuild=true :mobile:customFindBugs
       - *persist_debug_workspace
       - store_artifacts:
-          path: mobile/build/reports/
+          path: app/build/reports/
           destination: /reports/
 
   # Run instrumented tests
@@ -141,7 +152,7 @@ jobs:
           command: gcloud auth activate-service-account firebase-adminsdk-yrxat@memento-2-59cec.iam.gserviceaccount.com --key-file ${HOME}/encoded_memento2_key.json
       - run:
           name: Run instrumented test on Firebase Test Lab
-          command: gcloud firebase test android run --type instrumentation --app mobile/build/outputs/apk/debug/mobile-debug.apk --test mobile/build/outputs/apk/androidTest/debug/mobile-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
+          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/mobile-debug.apk --test app/build/outputs/apk/androidTest/debug/mobile-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
       - run:
           name: Create directory to store test results
           command: mkdir firebase
