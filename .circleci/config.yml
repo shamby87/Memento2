@@ -16,6 +16,39 @@ references:
         - ~/.gradle
         - ~/.m2
 
+ ## Workspace
+
+  workspace: &workspace
+    ~/workspace
+  attach_debug_workspace: &attach_debug_workspace
+    attach_workspace:
+      at: *workspace
+  attach_release_workspace: &attach_release_workspace
+    attach_workspace:
+      at: *workspace
+  persist_debug_workspace: &persist_debug_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - mobile/build/intermediates
+        - mobile/build/outputs/androidTest-results
+        - mobile/build/outputs/apk
+        - mobile/build/outputs/code-coverage
+        - mobile/build/test-results
+  persist_release_workspace: &persist_release_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - mobile/build
+  attach_firebase_workspace: &attach_firebase_workspace
+    attach_workspace:
+      at: *workspace
+  persist_firebase_workspace: &persist_firebase_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - firebase
+
   ## Docker image configurations
 
   android_config: &android_config
