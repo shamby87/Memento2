@@ -9,7 +9,8 @@ env:
 
 script:
 	# Build
-	- sh "./gradlew assembleGlobalDebug assembleGlobalDebugAndroidTest -PdisablePreDex"
+	#- sh "./gradlew assembleGlobalDebug assembleGlobalDebugAndroidTest -PdisablePreDex"
+	-./gradlew assembleGlobalDebug assembleGlobalDebugAndroidTest -PdisablePreDex
 
         # Send to firebase
 	# Firebase service account decrypt
@@ -30,12 +31,19 @@ script:
 	# Activate cloud credentials
 	- gcloud auth activate-service-account --key-file /tmp/service-account.json
 
-	# List available options for logging purpose only (so that we can review available options)
-	#- gcloud firebase test android models list  
-	#- gcloud firebase test android versions list
+	#- gcloud firebase test android run \  
+	#    --type instrumentation \
+	#    --app app/build/outputs/apk/debug/app-debug.apk \
+	#    --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+	#    --device model=Pixel2,version=27,locale=en,orientation=portrait
 
-	- gcloud firebase test android run \  
-	    --type instrumentation \
-	    --app app/build/outputs/apk/debug/app-debug.apk \
-	    --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-	    --device model=Pixel2,version=27,locale=en,orientation=portrait
+	./google-cloud-sdk/bin/gcloud beta firebase test android run \
+	--type instrumentation \
+	--app app/build/outputs/apk/debug/app-debug.apk \
+	--test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+	--device-ids hammerhead \
+	--os-version-ids 27 \
+	--locales en \
+	--orientations portrait \
+	--project $CLOUD_PROJECT_ID \
+	--timeout 15m
