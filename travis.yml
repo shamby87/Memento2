@@ -1,0 +1,25 @@
+env:  
+    global:
+        - ANDROID_TARGET=android-26
+        # Firebase
+        - CLOUD_PROJECT_ID=your_project_name
+
+    matrix:
+        - TEST_METHOD=INSTRUMENTED
+
+script:
+
+def test  
+    method = ENV["TEST_METHOD"]
+    if method == "INSTRUMENTED"
+        puts "UI Testing"
+
+        # Build
+        sh "./gradlew assembleGlobalDebug assembleGlobalDebugAndroidTest -PdisablePreDex"
+
+        # Send to firebase
+        sh " bash -x send_instrumented_test_to_firebase.sh"
+    else 
+        puts "unsupported TEST_METHOD arg"
+    end
+end
