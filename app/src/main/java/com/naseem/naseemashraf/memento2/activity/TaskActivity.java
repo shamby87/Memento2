@@ -113,7 +113,6 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
 
     }
 
-
     @Override
     public void onTaskChecked(int position, boolean checkState) {
         taskList.get(position).setChecked(checkState);
@@ -298,9 +297,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
 
     private List<Task> getMyDataset(){
         List<Task> sampleList = new ArrayList<>();
-        for(int i=0; i<10; i++){
-            sampleList.add(new Task(i, "Task "+i, "This is Task number "+i, false));
-        }
+        sampleList.add(new Task(0, "Your Task Here.", "Replace this task with yours.", false));
         return sampleList;
     }
 }

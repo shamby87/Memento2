@@ -47,7 +47,7 @@ public class TaskSwipeDeletionTest {
         onView(
             allOf(
                 withId(R.id.tvTask),
-                withText("Task 0"),
+                withText("Your Task Here."),
                 childAtPosition(childAtPosition(withId(R.id.tasks_recycler_view), 0), 1),
                 isDisplayed()));
     textView.check(matches(isDisplayed()));

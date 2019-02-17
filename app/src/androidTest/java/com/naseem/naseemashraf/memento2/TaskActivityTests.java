@@ -2,6 +2,8 @@ package com.naseem.naseemashraf.memento2;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskActivityTests extends AndroidJUnitRunner {
@@ -50,13 +53,13 @@ public class TaskActivityTests extends AndroidJUnitRunner {
 
     @Test
     public void checkTaskRecyclerFirstItem() {
-        String taskTitle = "Task 0";
+        String taskTitle = "Your Task Here.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
     }
 
     @Test
     public void checkTaskRecyclerFirstItem_onEdit() {
-        String taskTitle = "Task 0";
+        String taskTitle = "Your Task Here.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.tasks_recycler_view))
@@ -89,7 +92,10 @@ public class TaskActivityTests extends AndroidJUnitRunner {
                 .perform(click());
 
         String taskTitle = "Test Task Title.";
-        onView(withText(taskTitle)).check(matches(isDisplayed()));
+        onView(allOf(
+                withId(R.id.tvTask),
+                withText(taskTitle)))
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -108,7 +114,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
         onView(withText(taskTitle)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.tasks_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(10,click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
 
         onView(withId(R.id.EditTextTitle))
                 .perform(ViewActions.clearText(),typeText("Test Task Title Edited."))
