@@ -85,13 +85,13 @@ public class TaskActivityTests extends AndroidJUnitRunner {
                 .perform(click());
 
         onView(withId(R.id.EditTextTitle))
-                .perform(typeText("Test Task Title."))
+                .perform(typeText("Buy Milk."))
                 .perform(ViewActions.closeSoftKeyboard());
 
         onView(withId(R.id.ButtonSave))
                 .perform(click());
 
-        String taskTitle = "Test Task Title.";
+        String taskTitle = "Buy Milk.";
         onView(allOf(
                 withId(R.id.tvTask),
                 withText(taskTitle)))
@@ -104,26 +104,26 @@ public class TaskActivityTests extends AndroidJUnitRunner {
                 .perform(click());
 
         onView(withId(R.id.EditTextTitle))
-                .perform(typeText("Test Task Title."))
+                .perform(typeText("Do Calculus Assignment."))
                 .perform(ViewActions.closeSoftKeyboard());
 
         onView(withId(R.id.ButtonSave))
                 .perform(click());
 
-        String taskTitle = "Test Task Title.";
+        String taskTitle = "Do Calculus Assignment.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.tasks_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
 
         onView(withId(R.id.EditTextTitle))
-                .perform(ViewActions.clearText(),typeText("Test Task Title Edited."))
+                .perform(ViewActions.clearText(),typeText("Do Linear Algebra Assignment."))
                 .perform(ViewActions.closeSoftKeyboard());
 
         onView(withId(R.id.ButtonSave))
                 .perform(click());
 
-        taskTitle = "Test Task Title Edited.";
+        taskTitle = "Do Linear Algebra Assignment.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
     }
 
