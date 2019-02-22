@@ -14,9 +14,9 @@ This is a complete rewrite of [Memento Android App](https://github.com/mdnaseema
 
 ## Screen Caps
 
-![Task Activity Screen Shot](https://raw.githubusercontent.com/mdnaseemashraf/Memento2/master/Screenshots/Screenshot_20190220-193009.png =100x50)
-![Task Activity in Use Screen Shot](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Screenshot_20190220-193033.png =100x50)
-![Adding Task Screen Shot](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Screenshot_20190220-192908.png =100x50)
+![](https://raw.githubusercontent.com/mdnaseemashraf/Memento2/master/Screenshots/Screenshot_20190220-193009.png&s=200)
+![](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Screenshot_20190220-193033.png&s=200)
+![](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Screenshot_20190220-192908.png&s=200)
 
 ## Testing
 
