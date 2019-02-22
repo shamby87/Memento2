@@ -8,5 +8,6 @@
 .DS_Store
 /build
 /captures
+/release
 .externalNativeBuild
 memento2gson.json
