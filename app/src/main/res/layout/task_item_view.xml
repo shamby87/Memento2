@@ -15,7 +15,9 @@
         android:id="@+id/tvTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:text="Task 1"/>
+        android:textSize="18sp"
+        android:text="Task 1"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"/>
 
 </android.widget.LinearLayout>

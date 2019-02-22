@@ -48,6 +48,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
     private List<Task> taskList;
     private List<Task> deletedTasks;
 
+    private boolean draggedAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
         global_context = getApplicationContext();
         deletedTasks = new ArrayList<>();
         setupDB();
+        draggedAction = false;
 
         //RECYCLER
         mRecyclerView = findViewById(R.id.tasks_recycler_view);
@@ -117,7 +120,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
     }
 
     @Override
-    public void onTaskChecked(int position, boolean checkState) {
+    public void onTaskChecked(final int position, boolean checkState) {
         taskList.get(position).setChecked(checkState);
     }
 
@@ -165,10 +168,21 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
 
     @Override
     public void onTaskAdded(String taskTitle, String taskContent) {
-        Log.e("Add Task", "Title = "+taskTitle);
+        Log.e("Add Task", "Title = "+taskTitle+" Size = "+taskList.size()+1);
         Task task = new Task(taskList.size()+1, taskTitle, taskContent, false);
         taskList.add(task);
         mAdapter.onTaskAdd(taskList);
+
+        AddAllTasksAsync addTasks = new AddAllTasksAsync(global_context, taskList);
+        addTasks.execute();
+
+        if(taskList.size()==1){
+            resetAdapter();
+        }
+        if(draggedAction){
+            resetAdapter();
+            draggedAction = false;
+        }
     }
 
     @Override
@@ -177,6 +191,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
         taskList.get(taskID).setTitle(taskTitle);
         taskList.get(taskID).setContent(taskContent);
         mAdapter.updateTask(taskList.get(taskID), taskID);
+        AddAllTasksAsync addTasks = new AddAllTasksAsync(global_context, taskList);
+        addTasks.execute();
     }
 
     private ItemTouchHelper.SimpleCallback setupItemTouchHolder() {
@@ -190,6 +206,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                         taskList.get(target.getAdapterPosition()).setId(oldID);
 
                         mAdapter.onTaskMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+                        draggedAction = true;
                         return true;
                     }
 
@@ -218,6 +235,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                             });
                             snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                             snackbar.show();
+                            draggedAction = true;
                         }
                     }
 
