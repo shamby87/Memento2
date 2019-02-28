@@ -168,13 +168,17 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
 
     @Override
     public void onTaskAdded(String taskTitle, String taskContent) {
-        Log.e("Add Task", "Title = "+taskTitle+" Size = "+taskList.size()+1);
-        Task task = new Task(taskList.size()+1, taskTitle, taskContent, false);
+        Log.e("Add Task", "Title = "+taskTitle+" Size = "+taskList.size());
+        Task task = new Task(taskList.size(), taskTitle, taskContent, false);
         taskList.add(task);
+        reindexTaskList();
+
         mAdapter.onTaskAdd(taskList);
 
         AddAllTasksAsync addTasks = new AddAllTasksAsync(global_context, taskList);
         addTasks.execute();
+
+        //logTaskList();
 
         if(taskList.size()==1){
             resetAdapter();
@@ -193,6 +197,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
         mAdapter.updateTask(taskList.get(taskID), taskID);
         AddAllTasksAsync addTasks = new AddAllTasksAsync(global_context, taskList);
         addTasks.execute();
+
+        //logTaskList();
     }
 
     private ItemTouchHelper.SimpleCallback setupItemTouchHolder() {
@@ -214,6 +220,10 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
                         if (viewHolder instanceof TasksAdapter.TaskViewHolder) {
+
+                            //Log.e("UI Event","Task Dragged for Deletion.");
+                            //logTaskList();
+
                             String name = taskList.get(viewHolder.getAdapterPosition()).getTitle();
 
                             final Task deletedTask = taskList.get(viewHolder.getAdapterPosition());
@@ -236,6 +246,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                             snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                             snackbar.show();
                             draggedAction = true;
+
+                            //logTaskList();
                         }
                     }
 
@@ -323,5 +335,28 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
         List<Task> sampleList = new ArrayList<>();
         sampleList.add(new Task(0, "Your Task Here.", "Replace this task with yours.", false));
         return sampleList;
+    }
+
+    //Re-Index Task List for DB
+    private void reindexTaskList(){
+        int max = this.taskList.size();
+        Task prevTask = this.taskList.get(0);
+
+        for(int i=1; i<max; i++){
+            Task currentTask = this.taskList.get(i);
+            if((currentTask.getId()<=prevTask.getId())||(currentTask.getId()>prevTask.getId()+1)){
+                this.taskList.get(i).setId(prevTask.getId()+1);
+            }
+            prevTask = this.taskList.get(i);
+        }
+    }
+
+    //Logging Methods
+    public void logTaskList() {
+        Log.e("Activity Task List", String.valueOf(this.taskList.size()));
+
+        for(int i=0; i<this.taskList.size(); i++){
+            Log.e("Activity Task Item", this.taskList.get(i).toString());
+        }
     }
 }

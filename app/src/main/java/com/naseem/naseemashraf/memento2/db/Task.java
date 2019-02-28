@@ -64,4 +64,8 @@ public class Task {
         this.checked = checked;
     }
 
+    public String toString(){
+        return "Task: "+this.getTitle()+", ID: "+this.getId()+", Checked: "+this.isChecked();
+    }
+
 }

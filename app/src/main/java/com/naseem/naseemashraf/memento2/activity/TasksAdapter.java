@@ -2,6 +2,7 @@ package com.naseem.naseemashraf.memento2.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,5 +141,16 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     public void onTaskAdd(List<Task> inTaskList) {
         this.taskList = inTaskList;
         notifyItemInserted(taskList.size());
+
+        //logAdapterTaskList();
+    }
+
+    //Logging Methods
+    public void logAdapterTaskList() {
+        Log.e("Adapter Task List", String.valueOf(this.taskList.size()));
+
+        for(int i=0; i<this.taskList.size(); i++){
+            Log.e("Adapter Task Item", this.taskList.get(i).toString());
+        }
     }
 }
