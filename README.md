@@ -57,9 +57,3 @@ High input latency|24%
 Slow UI thread|8%
 Slow draw commands|0%
 Slow bitmap uploads|0%
-
-
-## Known Issues
-
-The RecyclerView being used from AndroidX support library is in alpha, which does make the app a bit unstable when swiping off elements and then adding new tasks which might not appear or be saved to app.
-Read more about AndroidX Release Notes [here](https://developer.android.com/jetpack/androidx/releases/) (Dated: February 21, 2019).
