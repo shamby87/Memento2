@@ -11,13 +11,13 @@ setup_ftl:
 - run:
     name: Authorize gcloud and set config defaults
     command: |
-      echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/gcloud-service-key.json
+      echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/memento2enc.json
       sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 jobs:
   build_and_setup:
     docker:
-    - image: circleci/android:api-28-alpha
+    - image: circleci/android:api-28
     working_directory: ~/project
     environment:
     - JAVA_TOOL_OPTIONS: -Xmx1024m
@@ -50,7 +50,7 @@ jobs:
         - ./app/app/build
   run_ftl:
     docker:
-    - image: circleci/android:api-28-alpha
+    - image: circleci/android:api-28
     working_directory: ~/project
     environment:
     - JAVA_TOOL_OPTIONS: -Xmx1024m
