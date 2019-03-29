@@ -11,8 +11,7 @@
       GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false
       TERM: dumb
 
-  jobs:
-    steps:
+    jobs:
     - checkout
 
     - restore_cache:
