@@ -1,5 +1,4 @@
   version: 2
-  config_android:
   docker:
   - image: circleci/android:api-28
 
