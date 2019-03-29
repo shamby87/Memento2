@@ -4,7 +4,19 @@ jobs:
     working_directory: ~/Memento2
     docker:
       - image: circleci/android:api-28-alpha  # gcloud is baked into this image
+    environment:
+      JVM_OPTS: -Xmx3200m
     steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Build debug APK and release APK
           command: |
