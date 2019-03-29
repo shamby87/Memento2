@@ -1,38 +1,37 @@
   version: 2
   config_android:
 
-  docker:
-  - image: circleci/android:api-28
+    docker:
+    - image: circleci/android:api-28
 
-  working_directory: ~/project
+    working_directory: ~/project
 
-  environment:
-    JAVA_TOOL_OPTIONS: -Xmx1024m
-    GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false
-    TERM: dumb
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx1024m
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false
+      TERM: dumb
 
   jobs:
-  steps:
-  - checkout
+    steps:
+    - checkout
 
-  - restore_cache:
-      keys:
-      - v1-dependencies-{{ checksum "build.gradle" }}
-      - v1-dependencies-
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "build.gradle" }}
+        - v1-dependencies-
 
-  - run: ./gradlew dependencies
+    - run: ./gradlew dependencies
 
-  - save_cache:
-      paths:
+    - save_cache:
+        paths:
         - ~/.gradle
-      key: v1-dependencies-{{ checksum "build.gradle" }}
+        key: v1-dependencies-{{ checksum "build.gradle" }}
 
+    - run: ./gradlew assembleDebug
+    - run: ./gradlew assembleAndroidTest
 
-  - run: ./gradlew assembleDebug
-  - run: ./gradlew assembleAndroidTest
-
-  - run: echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/client-secret.json
-  - run: sudo gcloud config set project FIREBASE_PROJECT_ID
-  - run: sudo gcloud auth activate-service-account FIREBASE_SERVICE_ACCOUNT --key-file ${HOME}/client-secret.json
-  - run: sudo gcloud config set account FIREBASE_SERVICE_ACCOUNT
-  - run: sudo gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus9,version=25 --use-orchestrator
+    - run: echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/client-secret.json
+    - run: sudo gcloud config set project FIREBASE_PROJECT_ID
+    - run: sudo gcloud auth activate-service-account FIREBASE_SERVICE_ACCOUNT --key-file ${HOME}/client-secret.json
+    - run: sudo gcloud config set account FIREBASE_SERVICE_ACCOUNT
+    - run: sudo gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus9,version=25 --use-orchestrator
