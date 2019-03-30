@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "385538479939",
+    "firebase_url": "https://memento-2-59cec.firebaseio.com",
+    "project_id": "memento-2-59cec",
+    "storage_bucket": "memento-2-59cec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385538479939:android:5a492b894e7f4d69",
+        "android_client_info": {
+          "package_name": "com.naseem.naseemashraf.memento2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385538479939-i8p0e8b74t203tmtfirlr0fp6iituo8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVI0djuivKo4prDWhUsDl8x_8R6hvOYEs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
