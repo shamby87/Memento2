@@ -28,6 +28,8 @@ Unit tests were ignored here. This build includes 8 **Instrumentation Tests**(th
 
 This build was further tested in [**Firebase Test Lab**](https://firebase.google.com/docs/test-lab/).
 
+Updated with [**CircleCI**](https://circleci.com/) + Firebase Test Lab to test app. Current status: [![CircleCI](https://circleci.com/gh/mdnaseemashraf/Memento2.svg?style=svg)](https://circleci.com/gh/mdnaseemashraf/Memento2)
+
 ## Firebase Robo Crawl Output
 
 ![Robo Call Graph](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Firebase%20Robo%20Test%20Crawl%20Graph.png?raw=true)
