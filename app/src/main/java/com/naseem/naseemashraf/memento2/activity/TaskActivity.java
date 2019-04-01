@@ -1,7 +1,6 @@
 package com.naseem.naseemashraf.memento2.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.naseem.naseemashraf.memento2.R;
-import com.naseem.naseemashraf.memento2.UI.OnTaskAddListener;
+import com.naseem.naseemashraf.memento2.ui.OnTaskAddListener;
 import com.naseem.naseemashraf.memento2.db.AddAllTasksAsync;
 import com.naseem.naseemashraf.memento2.db.DeleteTasksAsync;
 import com.naseem.naseemashraf.memento2.db.FetchTasksAsync;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -41,7 +39,6 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
 
     private RecyclerView mRecyclerView;
     private TasksAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private CoordinatorLayout coordinatorLayout;
     public Context global_context;
 
@@ -68,7 +65,7 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
         mRecyclerView = findViewById(R.id.tasks_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

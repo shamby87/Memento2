@@ -8,8 +8,6 @@ import java.util.List;
 public class FetchTasksAsync extends AsyncTask<Void, Void, List<Task>> {
 
     private Context context;
-    private List<Task> taskListdb;
-    private TasksSQLDatabase db;
 
     public FetchTasksAsync(Context context) {
         this.context = context;
@@ -17,8 +15,8 @@ public class FetchTasksAsync extends AsyncTask<Void, Void, List<Task>> {
 
     @Override
     protected List<Task> doInBackground(Void... params) {
-        db = TasksSQLDatabase.getInstance(context);
-        taskListdb = db.taskDao().getAll();
+        TasksSQLDatabase db = TasksSQLDatabase.getInstance(context);
+        List<Task> taskListdb = db.taskDao().getAll();
 
         return taskListdb;
     }

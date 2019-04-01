@@ -2,8 +2,6 @@ package com.naseem.naseemashraf.memento2;
 
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -42,8 +40,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
             new ActivityTestRule<TaskActivity>(TaskActivity.class);
 
     @Before
-    public void setUp() {
-
+    public void setUp() { //No setup required
     }
 
     @After
@@ -58,7 +55,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void checkTaskRecyclerFirstItem_onEdit() {
+    public void checkTaskRecyclerFirstItemOnEdit() {
         String taskTitle = "Your Task Here.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
 
@@ -71,7 +68,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void clickAddTaskFAB_opensAddTaskBottomSheetDialog() {
+    public void clickAddTaskFabOpensAddTaskBottomSheetDialog() {
         onView(withId(R.id.fab))
                 .perform(click());
 
@@ -80,7 +77,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void addTask_saveTask_checkRecycler() {
+    public void addTaskSaveTaskCheckRecycler() {
         onView(withId(R.id.fab))
                 .perform(click());
 
@@ -99,7 +96,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void addTask_saveTask_editTask() {
+    public void addTaskSaveTaskEditTask() {
         onView(withId(R.id.fab))
                 .perform(click());
 
@@ -113,7 +110,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
         String taskTitle = "Do Calculus Assignment.";
         onView(withText(taskTitle)).check(matches(isDisplayed()));
 
-        onView(ViewMatchers.withId(R.id.tasks_recycler_view))
+        onView(withId(R.id.tasks_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
 
         onView(withId(R.id.EditTextTitle))
@@ -127,7 +124,7 @@ public class TaskActivityTests extends AndroidJUnitRunner {
         onView(withText(taskTitle)).check(matches(isDisplayed()));
     }
 
-    Matcher<View> isEditTextValueEqualTo(final String content) {
+    private Matcher<View> isEditTextValueEqualTo(final String content) {
 
         return new TypeSafeMatcher<View>() {
 

@@ -22,19 +22,19 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
 
     private List<Task> taskList;
+	private TasksAdapterCallback callback;
 
     public interface TasksAdapterCallback{
         void onTaskChecked(int position, boolean checkState);
         void onTaskSelected(int position);
     }
-    TasksAdapterCallback callback;
 
     public class TaskViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTask;
-        CheckBox chkDone;
+        private TextView tvTask;
+        private CheckBox chkDone;
 
-        Context context;
+        private Context context;
 
         public TaskViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -72,7 +72,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         }
 
         // We'll use these to showcase matching the holder from the test.
-        String getTaskTitle(){
+        private String getTaskTitle(){
             return tvTask.getText().toString();
         }
 

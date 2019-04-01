@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 public class DeleteTasksAsync extends AsyncTask<Void, Void, Void> {
 
     private Context context;
-    private TasksSQLDatabase db;
 
     public DeleteTasksAsync(Context context) {
         this.context = context;
@@ -14,7 +13,7 @@ public class DeleteTasksAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        db = TasksSQLDatabase.getInstance(context);
+        TasksSQLDatabase db = TasksSQLDatabase.getInstance(context);
         db.taskDao().deleteAll();
 
         return null;

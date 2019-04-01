@@ -8,7 +8,6 @@ import java.util.List;
 
 public class AddAllTasksAsync extends AsyncTask<Void, Void, Void> {
 
-    private Context context;
     private List<Task> taskListdb;
     private TasksSQLDatabase db;
 

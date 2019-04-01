@@ -9,7 +9,6 @@ public class InitTasksAsync extends AsyncTask<Void, Void, Void> {
 
     private List<Task> taskListdb;
     private Context context;
-    private TasksSQLDatabase db;
 
     public InitTasksAsync(Context inContext, List<Task> inTaskList) {
         this.taskListdb = inTaskList;
@@ -18,7 +17,7 @@ public class InitTasksAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        db = TasksSQLDatabase.getInstance(context);
+        TasksSQLDatabase db = TasksSQLDatabase.getInstance(context);
 
         if(db.taskDao().getAll().isEmpty()) {
             db.taskDao().insertAll(taskListdb);

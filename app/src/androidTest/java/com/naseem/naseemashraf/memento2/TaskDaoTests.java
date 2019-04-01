@@ -41,7 +41,7 @@ public class TaskDaoTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void writeTaskList_ReadFetchedList() {
+    public void writeTaskListReadFetchedList() {
 
         List<Task> expectedList = new ArrayList<>();
         for(int i=0; i<10; i++){
@@ -55,7 +55,7 @@ public class TaskDaoTests extends AndroidJUnitRunner {
     }
 
     @Test
-    public void writeTaskList_DeleteAllTasks() {
+    public void writeTaskListDeleteAllTasks() {
 
         List<Task> expectedList = new ArrayList<>();
         for(int i=0; i<10; i++){
