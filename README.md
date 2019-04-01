@@ -30,6 +30,8 @@ This build was further tested in [**Firebase Test Lab**](https://firebase.google
 
 Updated with [**CircleCI**](https://circleci.com/) + Firebase Test Lab to test app. Current status: [![CircleCI](https://circleci.com/gh/mdnaseemashraf/Memento2.svg?style=svg)](https://circleci.com/gh/mdnaseemashraf/Memento2)
 
+Updated with [**Codacy**](https://www.codacy.com/) to show static code review. Current grading: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/54ed7f4291664832aa2bd8672c203104)](https://www.codacy.com/app/mdnaseemashraf/Memento2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mdnaseemashraf/Memento2&amp;utm_campaign=Badge_Grade)
+
 ## Firebase Robo Crawl Output
 
 ![Robo Call Graph](https://github.com/mdnaseemashraf/Memento2/blob/master/Screenshots/Firebase%20Robo%20Test%20Crawl%20Graph.png?raw=true)
