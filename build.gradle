@@ -34,8 +34,6 @@ task run("update") {
         dependencyUpdates -Drevision=release -DoutputFormatter=plain -DreportfileName=versioniongReport
     }
 }
-    
-}
 
 ext {
     roomVersion = '2.0.0-beta01'
