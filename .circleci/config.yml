@@ -23,8 +23,7 @@ jobs:
       - run:
           name: Discover dependency updates
           command: |
-            cd ~/.gradle
-            ls
+            find ~/.gradle "gradle.sh"
             #gradle dependencyUpdates -Drevision=release -DoutputFormatter=json,plain -DreportfileName=versioniongReport
             #echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.json
             #echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.txt
