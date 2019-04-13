@@ -21,6 +21,12 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: Discover dependency updates
+          command: |
+            gradle dependencyUpdates -Drevision=release -DoutputFormatter=json,plain -DreportfileName=versioniongReport
+            echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.json
+            echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.txt
+      - run:
           name: Build debug APK and release APK
           command: |
             ./gradlew :app:assembleDebug
