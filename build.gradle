@@ -29,6 +29,14 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task run("update") {
+    doLast {
+        dependencyUpdates -Drevision=release -DoutputFormatter=json,plain -DreportfileName=versioniongReport
+    }
+}
+    
+}
+
 ext {
     roomVersion = '2.0.0-beta01'
     archLifecycleVersion = '2.0.0-beta01'
