@@ -23,10 +23,9 @@ jobs:
       - run:
           name: Discover dependency updates
           command: |
-            find ~/.gradle "gradle.sh"
-            #gradle dependencyUpdates -Drevision=release -DoutputFormatter=json,plain -DreportfileName=versioniongReport
-            #echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.json
-            #echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.txt
+            gradle dependencyUpdates -Drevision=release -DoutputFormatter=json,plain -DreportfileName=versioniongReport
+            echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.json
+            echo ${HOME}/Memento2/app/build/dependencyUpdates/versionReport.txt
       #- run:
           #name: Build debug APK and release APK
           #command: |
