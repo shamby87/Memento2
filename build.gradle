@@ -29,11 +29,11 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task run("update") {
-    doLast {
-        dependencyUpdates -Drevision = 'release' -DoutputFormatter = 'plain' -DreportfileName = 'versioniongReport'
-    }
-}
+//task run("update") {
+//    doLast {
+//        dependencyUpdates -Drevision = release' -DoutputFormatter = 'plain' -DreportfileName = 'versioniongReport'
+//    }
+//}
 
 ext {
     roomVersion = '2.0.0-beta01'
