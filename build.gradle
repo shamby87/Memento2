@@ -31,7 +31,7 @@ task clean(type: Delete) {
 
 task run("update") {
     doLast {
-        dependencyUpdates -Drevision=release -DoutputFormatter=plain -DreportfileName=versioniongReport
+        dependencyUpdates -Drevision = 'release' -DoutputFormatter = 'plain' -DreportfileName = 'versioniongReport'
     }
 }
 
