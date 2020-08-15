@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Memento2
     docker:
-      - image: circleci/android:api-28-alpha  # gcloud is baked into this image
+      - image: circleci/android:api-30  # gcloud is baked into this image 28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -14,6 +14,7 @@ jobs:
           name: chmod permissions
           command: |
             sudo chmod +x ./gradlew
+            yes | sudo sdkmanager --licenses
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
