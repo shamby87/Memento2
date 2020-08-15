@@ -71,7 +71,6 @@
             android:layout_width="134dp"
             android:layout_height="133dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
             android:cropToPadding="true"
             android:onClick="gitrepo"
             android:scaleType="fitXY"
