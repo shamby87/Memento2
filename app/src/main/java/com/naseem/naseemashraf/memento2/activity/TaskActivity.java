@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutionException;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -104,7 +105,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                             String name = taskTitle;
                             Snackbar snackbar = Snackbar
                                     .make(coordinatorLayout, name + " added!", Snackbar.LENGTH_LONG);
-                            snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                            //snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                            snackbar.setActionTextColor(ContextCompat.getColor(global_context,R.color.colorPrimary));
                             snackbar.show();
                         }
                     }
@@ -153,7 +155,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                     String name = taskTitleIn;
                     Snackbar snackbar = Snackbar
                             .make(coordinatorLayout, name + " updated!", Snackbar.LENGTH_LONG);
-                    snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                    //snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                    snackbar.setActionTextColor(ContextCompat.getColor(global_context,R.color.colorPrimary));
                     snackbar.show();
                 }
             }
@@ -204,11 +207,18 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                     @Override
                     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
                     {
+                        /*
                         int oldID = taskList.get(viewHolder.getAdapterPosition()).getId();
                         taskList.get(viewHolder.getAdapterPosition()).setId(taskList.get(target.getAdapterPosition()).getId());
                         taskList.get(target.getAdapterPosition()).setId(oldID);
 
                         mAdapter.onTaskMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+                        */
+                        int oldID = taskList.get(viewHolder.getBindingAdapterPosition()).getId();
+                        taskList.get(viewHolder.getBindingAdapterPosition()).setId(taskList.get(target.getBindingAdapterPosition()).getId());
+                        taskList.get(target.getBindingAdapterPosition()).setId(oldID);
+
+                        mAdapter.onTaskMove(viewHolder.getBindingAdapterPosition(),target.getBindingAdapterPosition());
                         draggedAction = true;
                         return true;
                     }
@@ -221,12 +231,15 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                             //Log.e("UI Event","Task Dragged for Deletion.");
                             //logTaskList();
 
-                            String name = taskList.get(viewHolder.getAdapterPosition()).getTitle();
+                            String name = taskList.get(viewHolder.getBindingAdapterPosition()).getTitle();
 
-                            final Task deletedTask = taskList.get(viewHolder.getAdapterPosition());
-                            final int deletedIndex = viewHolder.getAdapterPosition();
+                            //final Task deletedTask = taskList.get(viewHolder.getAdapterPosition());
+                            final Task deletedTask = taskList.get(viewHolder.getBindingAdapterPosition());
+                            //final int deletedIndex = viewHolder.getAdapterPosition();
+                            final int deletedIndex = viewHolder.getBindingAdapterPosition();
 
-                            mAdapter.removeTask(viewHolder.getAdapterPosition());
+                            //mAdapter.removeTask(viewHolder.getAdapterPosition());
+                            mAdapter.removeTask(viewHolder.getBindingAdapterPosition());
                             deletedTasks.add(deletedTask);
 
                             Snackbar snackbar = Snackbar
@@ -240,7 +253,8 @@ public class TaskActivity extends AppCompatActivity implements TasksAdapter.Task
                                     resetAdapter();
                                 }
                             });
-                            snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                            snackbar.setActionTextColor(ContextCompat.getColor(global_context, R.color.colorPrimary));
+                            //getResources().getColor(R.color.colorPrimary)
                             snackbar.show();
                             draggedAction = true;
 
